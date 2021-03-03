@@ -17,6 +17,7 @@
                     @endif
 
                     @if( Request::is('*/edit'))
+                    <!-- Edit User within User active login -->
                     <form action="{{ url('usuarios/update') }}/{{ $usuario->id }}" method="post">
                     @csrf
                     <small>Fields with <span class="text-danger">*</span> are required.</small>
@@ -56,25 +57,6 @@
                       <div class="form-group">
                         <label for="exampleInputEmail1">E-mail:</label>
                         <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $usuario->email }}">
-                      </div>
-
-                      <div class="form-group">
-                        <label for="password" >{{ __('Password') }}<span class="text-danger">*</span></label>
-                        <div class="">
-                          <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                            @error('password')
-                              <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                              </span>
-                            @enderror
-                          </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label for="password-confirm" >{{ __('Confirm Password') }}<span class="text-danger">*</span></label>
-                        <div class="">
-                          <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                        </div>
                       </div>
 
                       <button type="submit" class="btn btn-primary">Submit</button>

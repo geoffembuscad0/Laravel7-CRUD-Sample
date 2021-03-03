@@ -31,6 +31,7 @@ class CreateUsuariosTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
