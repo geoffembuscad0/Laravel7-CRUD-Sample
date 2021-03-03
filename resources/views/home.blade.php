@@ -15,7 +15,7 @@
                     @endif
 
                     <h1>Welcome!</h1>
-                    <a href="{{ url('usuarios') }}">User List</a>
+                    <a href="{{ url('users') }}">User List</a>
                 </div>
             </div>
         </div>

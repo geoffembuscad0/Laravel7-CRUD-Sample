@@ -16,7 +16,11 @@
                             <label for="prefixname" class="col-md-4 col-form-label text-md-right">{{ __('Prefixname') }}</label>
 
                             <div class="col-md-6">
-                                <input id="prefixname" type="text" class="form-control @error('prefixname') is-invalid @enderror" name="prefixname" value="{{ old('prefixname') }}" autocomplete="prefixname" >
+                                <select id="prefixname" class="form-control @error('prefixname') is-invalid @enderror" name="prefixname">
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Ms.">Ms.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                </select>
 
                                 @error('prefixname')
                                     <span class="invalid-feedback" role="alert">
