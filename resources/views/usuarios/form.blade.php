@@ -16,46 +16,46 @@
                         </div>
                     @endif
 
-
                     @if( Request::is('*/edit'))
                     <form action="{{ url('usuarios/update') }}/{{ $usuario->id }}" method="post">
                     @csrf
                     <small>Fields with <span class="text-danger">*</span> are required.</small>
                       <div class="form-group">
                         <label for="exampleInputEmail1">Firstname<span class="text-danger">*</span></label>
-                        <input type="text" name="firstname" class="form-control" >
+                        <input type="text" name="firstname" class="form-control" value="{{ $usuario->firstname }}" >
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputEmail1">Middlename</label>
-                        <input type="text" name="middlename" class="form-control" >
+                        <input type="text" name="middlename" class="form-control" value="{{ $usuario->middlename }}">
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputEmail1">Lastname<span class="text-danger">*</span></label>
-                        <input type="text" name="lastname" class="form-control" >
+                        <input type="text" name="lastname" class="form-control" value="{{ $usuario->lastname }}">
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputEmail1">Suffix</label>
                         <select class="custom-select" id="suffixname" name="suffixname" >
-                          <option selected></option>
-                          <option value="Sr.">Sr.</option>
-                          <option value="Jr.">Jr.</option>
-                          <option value="I">I</option>
-                          <option value="II">II</option>
-                          <option value="III">III</option>
+                          @foreach ($suffixes as $suffix)
+                            @if($suffix == $usuario->suffixname)
+                              <option value="{{ $suffix }}" selected>{{ $suffix }}</option>
+                            @else
+                              <option value="{{ $suffix }}">{{ $suffix }}</option>
+                            @endif
+                          @endforeach
                         </select>
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputEmail1">Username<span class="text-danger">*</span></label>
-                        <input type="text" name="username" class="form-control" >
+                        <input type="text" name="username" class="form-control" value="{{ $usuario->username }}">
                       </div>
 
                       <div class="form-group">
                         <label for="exampleInputEmail1">E-mail:</label>
-                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $usuario->email }}">
                       </div>
 
                       <div class="form-group">
@@ -79,7 +79,6 @@
 
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-
                     @else
 
                     <form action="{{ url('usuarios/add') }}" method="post">
