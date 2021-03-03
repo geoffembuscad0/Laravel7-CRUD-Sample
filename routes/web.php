@@ -28,5 +28,5 @@ Route::post('/users/update/{id}', 'UserProfileController@update')->middleware('a
 Route::delete('/users/delete/{id}', 'UserProfileController@delete')->middleware('auth');
 
 Route::get('/users/trashed', 'UserProfileController@trashed')->middleware('auth');
-Route::put('/users/restore/{id}', 'UserProfileController@restore')->middleware('auth');
+Route::put('/users/restore/{id}', 'UserProfileController@restore')->middleware('auth')->name('trashed.restore');
 Route::delete('/users/trashed/delete/{id}', 'UserProfileController@forceDelete')->middleware('auth')->name('trashed.delete');

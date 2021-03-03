@@ -39,7 +39,11 @@
                           <td>{{ $u->lastname }}</td>
                           <td>{{ $u->email }}</td>
                           <td>
-
+                            <form action="{{ route('trashed.restore', $u->id ) }}" method="post">
+                                @csrf
+                                @method('put')
+                                <button class="btn btn-success" alt="Restore" data-toggle="tooltip" title="Restore {{ $u->firstname }} {{ $u->lastname }}">Restore</button>
+                            </form>
                           </td>
                           <td>
                             <!-- <button class="btn btn-danger" alt="Remove" data-toggle="tooltip" title="Remove {{ $u->firstname }} {{ $u->lastname }}">Delete</button> -->

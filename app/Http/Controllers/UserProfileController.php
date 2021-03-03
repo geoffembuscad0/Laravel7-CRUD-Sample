@@ -56,30 +56,27 @@ class UserProfileController extends Controller
     public function trashed(){
         $users = UserProfile::onlyTrashed()->get();
 
-        return view('users.archived', ['users' => $users]);
+        return view('users.trashed', ['users' => $users]);
     }
 
     public function restore( $id, Request $request ){
-        $user = User::find('id', $id );
         
-        $user->restore();
+        User::withTrashed()->where('id', $id )->restore();
 
-        $usuario = UserProfile::find('id', $id );
+        UserProfile::withTrashed()->where('id', $id )->restore();
 
-        $usuario->restore();
-
-        return Redirect::to('/trashed');
+        return Redirect::to('users/trashed');
     }
 
     public function forceDelete( $id ){
-        $user = UserProfile::where( 'id', $id );
+        $users = User::where( 'id', $id );
 
-        $user->forceDelete();
+        $users->forceDelete();
 
-        $usuario = Usuario::where( 'id', $id );
+        $userProfile = UserProfile::where( 'id', $id );
 
-        $usuario->forceDelete();
+        $userProfile->forceDelete();
 
-        return Redirect::to('/trashed');
+        return Redirect::to('users/trashed');
     }
 }

@@ -8,7 +8,6 @@
                 <div class="card-header">
                   <div role="group" aria-label="Basic example">
                     <a class="btn btn-secondary ms-1" href="{{ url('users') }}">Back</a>
-                    <a class="btn btn-danger ms-1" href="users/delete/{{ $user->id }}">Archive</a>
                   </div>
                 </div>
 
