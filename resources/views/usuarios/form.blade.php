@@ -6,7 +6,10 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ url('usuarios') }}">Create User</a>
+                  <div role="group" aria-label="Basic example">
+                    <a class="btn btn-secondary ms-1" href="{{ url('usuarios') }}">Back</a>
+                    <a class="btn btn-danger ms-1" href="usuarios/delete/{{ $usuario->id }}">Archive</a>
+                  </div>
                 </div>
 
                 <div class="card-body">

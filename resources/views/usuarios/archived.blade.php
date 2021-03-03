@@ -7,8 +7,7 @@
             <div class="card">
                 <div class="card-header">
                   <div role="group" aria-label="Basic example">
-                    <a class="btn btn-success" href="{{ url('usuarios/new') }}">New User</a>
-                    <a class="btn btn-secondary ms-1" href="{{ url('archived_users') }}">Archived Users</a>
+                    <a class="btn btn-secondary" href="{{ url('usuarios') }}">User List</a>
                   </div>
                 </div>
 
@@ -28,8 +27,8 @@
                           <th scope="col">Firstname</th>
                           <th scope="col">Lastname</th>
                           <th scope="col">E-mail</th>
-                          <th scope="col">Edit</th>
-                          <th scope="col">Archive</th>
+                          <th scope="col">Restore</th>
+                          <th scope="col">Delete</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -40,13 +39,14 @@
                           <td>{{ $u->lastname }}</td>
                           <td>{{ $u->email }}</td>
                           <td>
-                            <a href="usuarios/{{ $u->id }}/edit" class="btn btn-info" data-toggle="tooltip" title="Edit {{ $u->firstname }} {{ $u->lastname }}">Edit</button>
+
                           </td>
                           <td>
-                            <form action="usuarios/delete/{{ $u->id }}" method="post">
-                              @csrf
-                              @method('delete')
-                                <button class="btn btn-danger" alt="Remove" data-toggle="tooltip" title="Remove {{ $u->firstname }} {{ $u->lastname }}">Archive</button>
+                            <!-- <button class="btn btn-danger" alt="Remove" data-toggle="tooltip" title="Remove {{ $u->firstname }} {{ $u->lastname }}">Delete</button> -->
+                            <form action="{{ route('archived_users.delete', $u->id ) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-danger" alt="Delete" data-toggle="tooltip" title="Delete {{ $u->firstname }} {{ $u->lastname }}">Delete</button>
                             </form>
                           </td>
                         </tr>

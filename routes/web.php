@@ -22,7 +22,11 @@ Route::group(['middleware' => 'web'], function(){
 
 Route::get('/usuarios', 'UsuariosController@index')->middleware('auth');
 Route::get('/usuarios/new', 'UsuariosController@new')->middleware('auth');
-Route::post('usuarios/add', 'UsuariosController@add')->middleware('auth');
-Route::get('usuarios/{id}/edit', 'UsuariosController@edit')->middleware('auth');
+Route::post('/usuarios/add', 'UsuariosController@add')->middleware('auth');
+Route::get('/usuarios/{id}/edit', 'UsuariosController@edit')->middleware('auth');
 Route::post('/usuarios/update/{id}', 'UsuariosController@update')->middleware('auth');
 Route::delete('/usuarios/delete/{id}', 'UsuariosController@delete')->middleware('auth');
+
+Route::get('/archived_users', 'ArchivedUsuariosController@index')->middleware('auth');
+Route::put('/archived_users/update/{id}', 'ArchivedUsuariosController@update')->middleware('auth');
+Route::delete('/archived_users/delete/{id}', 'ArchivedUsuariosController@delete')->middleware('auth')->name('archived_users.delete');
