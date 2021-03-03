@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\User;
 use App\Usuario;
 use Redirect;
 use Illuminate\Http\Request;
@@ -37,6 +38,9 @@ class UsuariosController extends Controller
     }
 
     public function delete( $id ){
+        $user = User::findOrFail( $id );
+        $user->delete();
+
         $usuario = Usuario::findOrFail( $id );
         $usuario->delete();
         return Redirect::to('/usuarios');
