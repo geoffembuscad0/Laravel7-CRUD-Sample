@@ -1,0 +1,4 @@
+this app has no seeders but you can register a user in this project based from the exercise.
+
+admin
+AdminAdmin111
