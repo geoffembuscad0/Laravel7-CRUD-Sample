@@ -17,7 +17,6 @@ class UsuariosController extends Controller
     }
 
     public function add( Request $request ){
-
         $usuario = new Usuario;
         $usuario = $usuario->create( $request->all() );
         return Redirect::to('/usuarios');
