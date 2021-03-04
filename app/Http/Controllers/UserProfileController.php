@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class UserProfileController extends Controller
 {
     public function index(){
-        $users = UserProfile::get();
+        $users = UserProfile::where('type', '=', 'USER')->get();
         return view('users.list', [ 'users' => $users ]);
     }
 
     public function new(){
 
-        return view('users.add');
+        return view('users.create');
 
     }
 

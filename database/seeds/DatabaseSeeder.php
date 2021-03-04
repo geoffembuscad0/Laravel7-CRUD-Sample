@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -12,5 +16,22 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UserSeeder::class);
+        DB::table('users')->insert([
+            'firstname' => 'Geoffrey',
+            'lastname' => 'Embuscado',
+            'username' => 'geoffembuscado',
+            'type' => 'ADMIN',
+            'email' => 'geoffreyembuscado.work@gmail.com',
+            'password' => Hash::make('Willcodeforfood12'),
+        ]);
+
+        DB::table('user_profiles')->insert([
+            'firstname' => 'Geoffrey',
+            'lastname' => 'Embuscado',
+            'username' => 'geoffembuscado',
+            'type' => 'ADMIN',
+            'email' => 'geoffreyembuscado.work@gmail.com',
+            'password' => Hash::make('Willcodeforfood12'),
+        ]);
     }
 }
