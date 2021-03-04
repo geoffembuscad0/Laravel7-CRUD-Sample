@@ -19,7 +19,7 @@
                     @endif
 
                     <!-- FORMS -->
-                    <form action="{{ url('users/add') }}" method="post">
+                    <form action="{{ url('users/add') }}" method="post" enctype="multipart/form-data">
                     @csrf
                       <!-- Create User within User active login -->
                       <small>Fields with <span class="text-danger">*</span> are required.</small>
@@ -96,6 +96,37 @@
                         <div class="">
                           <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                         </div>
+                      </div>
+
+                      <div class="form-group">
+                            <label for="type" class="col-form-label text-md-right">{{ __('User Type') }}</label>
+
+                            <div class="">
+                                <select id="type" class="form-control @error('type') is-invalid @enderror" name="type">
+                                    <option value="USER">USER</option>
+                                    <option value="ADMIN">ADMIN</option>
+                                </select>
+
+                                @error('type')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                      <div class="form-group">
+                        <div>
+                          <label for="avatar" class="col-form-label text-md-right">{{ __('Change Avatar: ') }}</label>
+                        </div>
+                        <div>
+                          <input type="file" name="avatar" id="avatar">
+                        </div>
+                        @error('avatar')
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                       </div>
 
                       <button type="submit" class="btn btn-primary">Submit</button>

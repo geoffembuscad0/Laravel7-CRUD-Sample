@@ -17,6 +17,8 @@ class UserProfile extends Model
         'suffixname',
         'username',
         'email',
-        'password'
+        'password',
+        'photo',
+        'type'
     ];
 }

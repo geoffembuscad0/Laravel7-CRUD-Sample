@@ -8,6 +8,7 @@ use App\User;
 use App\UserProfile;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -67,6 +68,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if(array_key_exists('photo', $data)){
+            $filename = Crypt::encryptString($data['photo']->getClientOriginalName()) . '.' . $data['photo']->extension();
+
+            $data['photo']->storeAs( 'avatars', $filename, 'public');
+            $data['photo'] = $filename;
+        } else {
+            $data['photo'] = 'default_avatar.jpg';
+        }
+
         $userCreate = User::create([
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
@@ -74,7 +84,8 @@ class RegisterController extends Controller
             'prefixname' => $data['prefixname'],
             'suffixname' => $data['suffixname'],
             'username' => $data['username'],
-            
+            'photo' => $data['photo'],
+
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
@@ -86,7 +97,8 @@ class RegisterController extends Controller
             'prefixname' => $data['prefixname'],
             'suffixname' => $data['suffixname'],
             'username' => $data['username'],
-            
+            'photo' => $data['photo'],
+
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

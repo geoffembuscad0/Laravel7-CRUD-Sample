@@ -19,9 +19,13 @@
                     @endif
 
                     <!-- FORMS -->
-                    <form action="{{ url('users/update') }}/{{ $user->id }}" method="post">
+                    <form action="{{ url('users/update') }}/{{ $user->id }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <small>Fields with <span class="text-danger">*</span> are required.</small>
+                      <div class="form-group text-center">
+                        <img src="{{ url('/storage/avatars/' . $user->photo ) }}" class="img-thumbnail rounded-circle" alt="User Avatar" style="width: 175px; height: 175px;">
+                      </div>
+
                       <div class="form-group">
                         <label for="exampleInputEmail1">Firstname<span class="text-danger">*</span></label>
                         <input type="text" name="firstname" class="form-control" value="{{ $user->firstname }}" >
@@ -58,6 +62,20 @@
                       <div class="form-group">
                         <label for="exampleInputEmail1">E-mail:</label>
                         <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $user->email }}">
+                      </div>
+
+                      <div class="form-group">
+                        <div>
+                          <label for="avatar" class="col-form-label text-md-right">{{ __('Change Avatar: ') }}</label>
+                        </div>
+                        <div>
+                          <input type="file" name="avatar" id="avatar">
+                        </div>
+                        @error('avatar')
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                       </div>
 
                       <button type="submit" class="btn btn-primary">Submit</button>

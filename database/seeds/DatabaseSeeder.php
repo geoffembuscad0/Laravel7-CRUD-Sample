@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'geoffembuscado',
             'type' => 'ADMIN',
             'email' => 'geoffreyembuscado.work@gmail.com',
+            'photo' => 'default_avatar.jpg',
             'password' => Hash::make('Willcodeforfood12'),
         ]);
 
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'geoffembuscado',
             'type' => 'ADMIN',
             'email' => 'geoffreyembuscado.work@gmail.com',
+            'photo' => 'default_avatar.jpg',
             'password' => Hash::make('Willcodeforfood12'),
         ]);
     }

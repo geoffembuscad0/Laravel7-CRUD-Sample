@@ -5,12 +5,13 @@ use App\User;
 use App\UserProfile;
 use Redirect;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class UserProfileController extends Controller
 {
     public function index(){
-        $users = UserProfile::where('type', '=', 'USER')->get();
-        return view('users.list', [ 'users' => $users ]);
+        $users = UserProfile::get();
+        return view('users.index', [ 'users' => $users ]);
     }
 
     public function new(){
@@ -20,24 +21,66 @@ class UserProfileController extends Controller
     }
 
     public function add( Request $request ){
+
+        $filename = 'default_avatar.jpg';
+
+        if( !is_null($request->file('avatar')) ){
+
+            $filename = Crypt::encryptString($request->file('avatar')->getClientOriginalName()) . '.' . $request->file('avatar')->extension();
+
+            $request->file('avatar')->storeAs( 'avatars', $filename, 'public');
+
+            $request->photo = $filename;
+
+        } else {
+
+            $request->photo = $filename;
+
+        }
+
+        $request->merge([ 'photo' => $filename ]);
+
         $UserProfile = new UserProfile;
+
         $UserProfile = $UserProfile->create( $request->all() );
 
         $User = new User;
+
         $User = $User->create( $request->all() );
 
         return Redirect::to('/users');
     }
 
     public function edit( $id ){
+
         $user = UserProfile::findOrFail( $id );
 
         $suffixes = [ "", "Sr.","Jr.", "I", "II", "III"];
 
         return view('users.edit', ['user' => $user, 'suffixes' => $suffixes]);
+
     }
 
     public function update( $id, Request $request ){
+
+        $filename = 'default_avatar.jpg';
+
+        if( !is_null($request->file('avatar')) ){
+
+            $filename = Crypt::encryptString($request->file('avatar')->getClientOriginalName()) . '.' . $request->file('avatar')->extension();
+
+            $request->file('avatar')->storeAs( 'avatars', $filename, 'public');
+
+            $request->photo = $filename;
+
+        } else {
+
+            $request->photo = $filename;
+
+        }
+
+        $request->merge([ 'photo' => $filename ]);
+
         $UserProfile = UserProfile::findOrFail( $id );
         $UserProfile->update( $request->all() );
         return Redirect::to('/users');
