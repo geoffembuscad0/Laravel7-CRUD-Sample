@@ -5,12 +5,13 @@ use App\User;
 use App\UserProfile;
 use Redirect;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 
 class UserProfileController extends Controller
 {
     public function index(){
-        $users = UserProfile::get();
+        $users = User::get();
         return view('users.index', [ 'users' => $users ]);
     }
 
@@ -38,11 +39,7 @@ class UserProfileController extends Controller
 
         }
 
-        $request->merge([ 'photo' => $filename ]);
-
-        $UserProfile = new UserProfile;
-
-        $UserProfile = $UserProfile->create( $request->all() );
+        $request->merge([ 'photo' => $filename, 'password' => Hash::make($request->get('password')), 'password_confirmation' => Hash::make($request->get('password_confirmation')) ]);
 
         $User = new User;
 
@@ -53,7 +50,7 @@ class UserProfileController extends Controller
 
     public function edit( $id ){
 
-        $user = UserProfile::findOrFail( $id );
+        $user = User::findOrFail( $id );
 
         $suffixes = [ "", "Sr.","Jr.", "I", "II", "III"];
 
@@ -81,7 +78,7 @@ class UserProfileController extends Controller
 
         $request->merge([ 'photo' => $filename ]);
 
-        $UserProfile = UserProfile::findOrFail( $id );
+        $UserProfile = User::findOrFail( $id );
         $UserProfile->update( $request->all() );
         return Redirect::to('/users');
     }
@@ -90,14 +87,12 @@ class UserProfileController extends Controller
         $user = User::findOrFail( $id );
         $user->delete();
 
-        $UserProfile = UserProfile::findOrFail( $id );
-        $UserProfile->delete();
         return Redirect::to('/users');
     }
 
     // Trashed Users - Macro deletes
     public function trashed(){
-        $users = UserProfile::onlyTrashed()->get();
+        $users = User::onlyTrashed()->get();
 
         return view('users.trashed', ['users' => $users]);
     }
@@ -106,8 +101,6 @@ class UserProfileController extends Controller
         
         User::withTrashed()->where('id', $id )->restore();
 
-        UserProfile::withTrashed()->where('id', $id )->restore();
-
         return Redirect::to('users/trashed');
     }
 
@@ -115,10 +108,6 @@ class UserProfileController extends Controller
         $users = User::where( 'id', $id );
 
         $users->forceDelete();
-
-        $userProfile = UserProfile::where( 'id', $id );
-
-        $userProfile->forceDelete();
 
         return Redirect::to('users/trashed');
     }

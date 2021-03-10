@@ -25,15 +25,5 @@ class DatabaseSeeder extends Seeder
             'photo' => 'default_avatar.jpg',
             'password' => Hash::make('Willcodeforfood12'),
         ]);
-
-        DB::table('user_profiles')->insert([
-            'firstname' => 'Geoffrey',
-            'lastname' => 'Embuscado',
-            'username' => 'geoffembuscado',
-            'type' => 'ADMIN',
-            'email' => 'geoffreyembuscado.work@gmail.com',
-            'photo' => 'default_avatar.jpg',
-            'password' => Hash::make('Willcodeforfood12'),
-        ]);
     }
 }
